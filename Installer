@@ -1,0 +1,31 @@
+-- Check if a disk is inserted
+if not fs.exists("/disk") then
+    print("No disk detected. Please insert a disk.")
+    return
+end
+ 
+print("Disk detected at /disk.")
+ 
+-- Download 'movie' to the root directory
+print("Downloading 'movie' to /")
+shell.run("pastebin", "get", "i9qKu7jn", "/movie")
+ 
+-- Download '32vid-player-mini' to the disk
+print("Downloading '32vid-player-mini' to /disk/")
+shell.run("pastebin", "get", "kQC6snk9", "/disk/32vid-player-mini")
+ 
+-- Find the disk drive peripheral that is mounted at /disk
+for _, name in ipairs(peripheral.getNames()) do
+    if peripheral.getType(name) == "drive" then
+        local mountPath = disk.getMountPath(name)
+        if mountPath == "/disk" then
+            disk.setLabel(name, "MHA DEMO")
+            print("Disk renamed to 'MHA DEMO'")
+            break
+        end
+    end
+end
+ 
+print("Setup complete!")
+print("Please connect a 4x8 monitor and a speaker")
+print("before attempting playback!")
