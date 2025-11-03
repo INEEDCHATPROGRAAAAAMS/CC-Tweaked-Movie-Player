@@ -5,10 +5,10 @@ and the 'movie' program on the computer is essentially just running the command 
 
 Requirements:
 
-8x4 advanced monitor
-floppy drive
-advanced computer
-speaker
+1. 8x4 advanced monitor
+2. floppy drive
+3. advanced computer
+4. speaker
 
 Installation:
 1. Run "pastebin run KtGzAUch" with an empty floppy inserted and the monitor and speaker connected.
