@@ -1,0 +1,45 @@
+-- check if /disk/32vid-player-mini exists
+if not fs.exists("/disk/32vid-player-mini") then
+	print("Movie not found! Insert Floppy!")
+	return
+end
+ 
+-- Try to find a monitor
+local monitor = nil
+ 
+-- First, check for a monitor directly connected to a side
+for _, side in ipairs({"left", "right", "top", "bottom", "front", "back"}) do
+	if peripheral.getType(side) == "monitor" then
+		monitor = peripheral.wrap(side)
+		print("Found directly connected monitor on side: " .. side)
+		break
+	end
+end
+ 
+-- If none found, try any networked monitor
+if not monitor then
+	for _, name in ipairs(peripheral.getNames()) do
+		if peripheral.getType(name) == "monitor" then
+			monitor = peripheral.wrap(name)
+			print("Found networked monitor: " .. name)
+			break
+		end
+	end
+end
+ 
+if not monitor then
+	print("No monitor found!")
+	return
+end
+ 
+-- Redirect terminal to monitor
+local originalTerm = term.redirect(monitor)
+term.clear()
+term.setCursorPos(1, 1)
+ 
+-- Run video player script
+shell.run("/disk/32vid-player-mini")
+ 
+-- Restore terminal
+term.redirect(originalTerm)
+ 
